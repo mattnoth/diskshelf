@@ -13,7 +13,7 @@ const ShelfList = () => {
 
         const REACT_APP_DISKSHELF_KEY = process.env.REACT_APP_DISKSHELF_KEY
 
-        const url = `https://api.rawg.io/api/games?key=${REACT_APP_DISKSHELF_KEY}&ordering=-rating&platforms=18&genres=role-playing-games-rpg&page_size=9`
+        const url = `https://api.rawg.io/api/games?key=${REACT_APP_DISKSHELF_KEY}&ordering=-rating&platforms=18&genres=role-playing-games-rpg&page_size=20`
 
 		Axios(url)
 			.then((data) => {
