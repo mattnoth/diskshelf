@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button'
-import Modal from 'react-bootstrap/Modal'
 import Card from 'react-bootstrap/Card'
+import { Link } from 'react-router-dom'
 import '../index.scss'
 
 const ShelfCard = ({ game }) => {
@@ -17,23 +17,23 @@ const ShelfCard = ({ game }) => {
 
 	return (
 		<div>
-			<Card>
-				<Card.Img variant='top' src={game.background_image} />
+			<Card className='text-center'>
 				<Card.Body>
-					<Card.Title>{game.name}</Card.Title>
+					<Card.Title>
+						<Link to={`/` + game.slug}> {game.name}</Link>
+					</Card.Title>
+					<Card.Img className ='card-image' variant='top' src={game.background_image} />
 					<Card.Text>
 						Released: {game.released} <br />
 						Genre: {game.genres[0].name} <br />
-					    Metacritic Rating: {game?.metacritic}
+						Metacritic Rating: {game?.metacritic}
 					</Card.Text>
-					<Button variant='primary'>Go somewhere</Button>
+					<Button variant='primary'>
+						<Link to={`/` + game.slug}> </Link>
+						Details
+					</Button>
 				</Card.Body>
 			</Card>
-			{/* <h3>{game.name}</h3>
-			<img src={game.background_image} alt={game.name} /> */}
-			{/* <p>Released: {game.released}</p>
-			<p>Genre: {game.genres[0].name}</p>
-			<p>Metacritic Rating: {game?.metacritic}</p> */}
 		</div>
 	)
 }

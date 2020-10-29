@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom'
 
 const Navigation = () => {
 	return (
-		<Navbar>
+		<Navbar bg='primary'>
 			<Navbar.Brand as={Link} to='/home'>
-				Diskshelf
+				DiscShelf
 			</Navbar.Brand>
 			<Navbar.Toggle aria-controls='basic-navbar-nav' />
 			<Navbar.Collapse id='basic-navbar-nav'>
