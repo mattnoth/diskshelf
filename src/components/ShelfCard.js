@@ -17,23 +17,23 @@ const ShelfCard = ({ game }) => {
 
 	return (
 		<div>
-			<Card className='text-center'>
-				<Card.Body>
-					<Card.Title>
-						<Link to={`/` + game.slug}> {game.name}</Link>
-					</Card.Title>
-					<Card.Img className ='card-image' variant='top' src={game.background_image} />
-					<Card.Text>
-						Released: {game.released} <br />
-						Genre: {game.genres[0].name} <br />
-						Metacritic Rating: {game?.metacritic}
-					</Card.Text>
-					<Button variant='primary'>
-						<Link to={`/` + game.slug}> </Link>
-						Details
-					</Button>
-				</Card.Body>
-			</Card>
+			<Link to={`/` + game.slug}>
+				<Card className='text-center'>
+					<Card.Body>
+						<Card.Title>{game.name}</Card.Title>
+						<Card.Img
+							className='card-image'
+							variant='top'
+							src={game.background_image}
+						/>
+						<Card.Text>
+							Released: {game.released} <br />
+							Genre: {game.genres[0].name} <br />
+							Metacritic Rating: {game?.metacritic}
+						</Card.Text>
+					</Card.Body>
+				</Card>
+			</Link>
 		</div>
 	)
 }

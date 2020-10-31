@@ -40,11 +40,12 @@ code {
 	justify-content: center;
   align-content: center;
   padding: 1rem;
+  background-color: #99CC99;
 }
 
-.card-image {
-  max-width: 250px;
-}
+// .card-image {
+//   max-width: 250px;
+// }
 
 .card-text { 
   height:100px;
@@ -67,8 +68,46 @@ code {
 
 // }
 
-.detail-image { 
-  max-width: 500px;
-}
+// .game-details { 
+//   display:flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-content: center;
+//   background-color:#CCFFFF;
+//   text-align: center;
+//   padding: 15px;
+// }
+
+// .detail-image { 
+//   display:flex; 
+//   padding-left: 300px;
+//   max-width: 500px;
+//   text-align:center;
+//   justify-content: center;
+//   align-items:center; 
+// }
 
 // card header to be set height, or detail -- space between div within h3 and image 
+
+
+.game-details { 
+  display:flex;
+  
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  background-color:#CCFFFF;
+  text-align: center;
+
+
+}
+
+
+.detail-image { 
+  display:flex; 
+ 
+  max-width: 500px;
+
+  justify-content: space-around;
+  align-items:center; 
+}

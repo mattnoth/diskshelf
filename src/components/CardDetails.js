@@ -1,58 +1,63 @@
 import React, { useState, useEffect } from 'react'
-import ShelfList from './ShelfList'
 import Axios from 'axios'
+import '../index.scss'
 
-
-const CardDetails = () => {
+const CardDetails = ({ match }) => {
 	const REACT_APP_DISKSHELF_KEY = process.env.REACT_APP_DISKSHELF_KEY
-	const gameSlug = `the-witcher-3-game-of-the-year`
-    
-    const [game, setGame] = useState([])
-    const [platforms, setPlatforms] = useState([])
-    
-    useEffect(() => {
-       getGame()
-    }, [])
+	const gameSlug = match.params.slug
 
-    
-    const getGame = () => {
+	const [game, setGame] = useState(null)
+	const [platforms, setPlatforms] = useState([])
+	const [rating, setRating] = useState({})
+	const [developer, setDeveloper] = useState([])
 
-        const testurl = `https://api.rawg.io/api/games/key=${REACT_APP_DISKSHELF_KEY}/${gameSlug}`
-        const testurl2 = `https://api.rawg.io/api/games/the-witcher-3-game-of-the-year`
-		Axios(testurl2)
+	useEffect(() => {
+		getGame()
+	}, [])
+
+	const getGame = () => {
+		const testurl = `https://api.rawg.io/api/games/${gameSlug}?key=${REACT_APP_DISKSHELF_KEY}`
+
+		Axios(testurl)
 			.then((data) => {
-				console.log(data.data)
-                setGame(data.data)
-                setPlatforms(data.data.platforms)
-                
+				setGame(data.data)
+				setPlatforms(data.data.platforms)
+				setRating(data.data.esrb_rating)
+				setDeveloper(data.data.developers)
 			})
 			.catch(console.error)
-    }
- 
-    //add carasoul container for details to use dif images, clips? 
+	}
+
+	//add carasoul container for details to use dif images, clips?
+
+	if (!game) {
+		return <p>loading...</p>
+	}
+
+	console.log(game, 'this is the game ')
+	console.log(game.genres)
 
 	return (
 		<div className='game-details'>
-			<h2> {game.name} </h2>
-			<p> {game.released} </p>
-			{/* <p> {game.genres[0].name}, {game.genres[1].name} </p> */}
+			<h2 className='detailsGameName'> {game.name} </h2>
+			<p className='detailsReleased'> {game.released} </p>
+			{/* <p> {game.genres[0]?.name}, {game.genres[1]?.name} </p> */}
 			<p>
-				{/* {game.genres[0].name}, {game.genres[1].name}{' '} */}
+				{game.genres[0]?.name}, {game.genres[1]?.name}{' '}
 			</p>
 			<img
 				className='detail-image'
 				src={game.background_image}
 				alt={game.name}
 			/>
-			<p>{game.description_raw}</p>
-			{/* <p>
-				Available On: {platforms[0]?.platform.name},{' '}
-				{platforms[1]?.platform.name}, {platforms[2]?.platform.name},{' '}
-				{platforms[3]?.platform.name}{' '}
-			</p> */}
-        <p>Rating: {game.esrb_rating.name}</p>
-    {/* <p> Developed By {game.developers[0].name} </p> */}
-			{/* <p>Genres: {game.genres[0].name}</p> */}
+			<p className='detailsDesc'>{game.description_raw}</p>
+			<p className='detailsPlatform'>
+				Available On: {platforms[0]?.platform?.name},{' '}
+				{platforms[1]?.platform?.name}, {platforms[2]?.platform?.name},{' '}
+				{platforms[3]?.platform?.name}{' '}
+			</p>
+			<p className='detailsRating'>{rating?.name}</p>
+			<p className='detailsDev'>{developer[0]?.name}</p>
 		</div>
 	)
 }
