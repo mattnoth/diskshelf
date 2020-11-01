@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import '../index.scss'
 
 const ShelfCard = ({ game }) => {
@@ -13,12 +13,17 @@ const ShelfCard = ({ game }) => {
 
     // use moment to format date / time ? 
 
-    // make the image the width of name header 
+	// make the image the width of name header 
 
+	if(!game) { 
+		return (
+			<p>Loading...</p>
+		)
+	}
 	return (
 		<div>
-			<Link to={`/` + game.slug}>
-				<Card className='text-center'>
+			<NavLink to={`/` + game.slug}>
+				<Card className='text-center, NavLink'>
 					<Card.Body>
 						<Card.Title>{game.name}</Card.Title>
 						<Card.Img
@@ -28,12 +33,12 @@ const ShelfCard = ({ game }) => {
 						/>
 						<Card.Text>
 							Released: {game.released} <br />
-							Genre: {game.genres[0].name} <br />
+							Genre: {game.genres[0]?.name} <br />
 							Metacritic Rating: {game?.metacritic}
 						</Card.Text>
 					</Card.Body>
 				</Card>
-			</Link>
+			</NavLink>
 		</div>
 	)
 }

@@ -63,6 +63,11 @@ code {
   background: #CCFFFF;
   border-radius: 0%;
 }
+
+.card-body:hover { 
+  transform: translate(0, -5px);
+
+}
 // .card-body button {
 //   justify-self: flex-end;
 
@@ -102,12 +107,32 @@ code {
 
 }
 
+.image-div {
+  display: flex; 
+  align-content: center;
+  justify-content: center;
+}
 
 .detail-image { 
-  display:flex; 
+  // display:flex; 
  
-  max-width: 500px;
+  width: 500px;
+  max-height: 500px;
 
-  justify-content: space-around;
-  align-items:center; 
+  // justify-content: space-around;
+  // align-items:center; 
+}
+
+.NavLink { 
+  color: black;
+
+}
+
+.desc-div { 
+  align-self: flex-start; 
+  padding: 25px 150px;
+}
+
+.detailsGameName { 
+  padding: 10px;
 }

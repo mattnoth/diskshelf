@@ -34,8 +34,7 @@ const CardDetails = ({ match }) => {
 		return <p>loading...</p>
 	}
 
-	console.log(game, 'this is the game ')
-	console.log(game.genres)
+	
 
 	return (
 		<div className='game-details'>
@@ -45,12 +44,18 @@ const CardDetails = ({ match }) => {
 			<p>
 				{game.genres[0]?.name}, {game.genres[1]?.name}{' '}
 			</p>
-			<img
-				className='detail-image'
-				src={game.background_image}
-				alt={game.name}
-			/>
-			<p className='detailsDesc'>{game.description_raw}</p>
+			<div className='image-div'>
+				<img
+					className='detail-image'
+					src={game.background_image}
+					alt={game.name}
+				/>{' '}
+			</div>
+			<div className='desc-div'>
+				{' '}
+				<p className='detailsDesc'>{game.description_raw}</p>{' '}
+			</div>
+
 			<p className='detailsPlatform'>
 				Available On: {platforms[0]?.platform?.name},{' '}
 				{platforms[1]?.platform?.name}, {platforms[2]?.platform?.name},{' '}
