@@ -5,7 +5,7 @@ import { Route } from 'react-router-dom'
 import ShelfList from './components/ShelfList'
 import CardDetails from './components/CardDetails'
 import './index.scss'
-import SearchForm from './components/SearchForm'
+
 
 function App() {
 	return (
@@ -15,22 +15,11 @@ function App() {
 				<Navigation />{' '}
 			</header>
 			<main>
-				{/* <Route path='/'
-        render={(routerProps)} => {
-          return <SearchForm />
-        }} */}
-				{/* <Route
-					path='/'
-					exact
-					render={(routerProps) => {
-						return <SearchForm />
-					}}
-				/> */}
 				<Route
 					path='/'
-					exact
+          exact
 					render={(routerProps) => {
-						return <ShelfList />
+            return <ShelfList match={routerProps.match} />
 					}}
 				/>
 				<Route

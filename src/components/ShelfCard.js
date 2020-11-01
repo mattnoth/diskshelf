@@ -5,15 +5,8 @@ import { NavLink } from 'react-router-dom'
 import '../index.scss'
 
 const ShelfCard = ({ game }) => {
-	// return metacritic rating only if there is one; if not, return rating out of 5
-    // when you click the card, it opens the game specific? -- whats in the game specific 
-    // user can filter data based on certain queries.. what can the queries be. 
-    
-    // genre array won't always have more than one... how to display how many the array has? 
 
     // use moment to format date / time ? 
-
-	// make the image the width of name header 
 
 	if(!game) { 
 		return (

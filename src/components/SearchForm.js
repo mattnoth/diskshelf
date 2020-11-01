@@ -1,58 +1,43 @@
 import React, { useState } from 'react'
 import Axios from 'axios'
 
-const SearchForm = ({ games, setGames, getGames}) => {
-    const [formStatus, setFormStatus] = useState('')
-    const [platform, setPlatform] = useState('')
-    const [genre, setGenre] =useState('')
-    
-   
+const SearchForm = ({ games, setGames, getGames }) => {
+	const [formStatus, setFormStatus] = useState('')
+	const [platform, setPlatform] = useState('')
+	const [genre, setGenre] = useState('')
+
 	const REACT_APP_DISKSHELF_KEY = process.env.REACT_APP_DISKSHELF_KEY
-    let url = `https://api.rawg.io/api/games?key=${REACT_APP_DISKSHELF_KEY}`
-    if (formStatus) {
-        url += `&search=${formStatus}`
-    }
-    console.log(platform)
-    if (platform !== '') { 
-        url += `&platforms=${platform}`
-    }
-    if (genre !== '') { 
-        url += `&genres=${genre}`
-    }
+	let url = `https://api.rawg.io/api/games?key=${REACT_APP_DISKSHELF_KEY}`
+	if (formStatus) {
+		url += `&search=${formStatus}`
+	}
+	console.log(platform)
+	if (platform !== '') {
+		url += `&platforms=${platform}`
+	}
+	if (genre !== '') {
+		url += `&genres=${genre}`
+	}
 
+	const handleChange = (event) => {
+		setFormStatus(event.target.value)
+	}
 
-    const handleChange = (event) => {
-        setFormStatus(event.target.value)
-       
-    }
-
-    const handlePlatformChange = (event) => {
-        // setPlatform(event.target.value)
-      
-        setPlatform(event.target.value)
-    }
-    const handleGenreChange = (event) => {
-        setGenre(event.target.value)
-    }
+	const handlePlatformChange = (event) => {
+		setPlatform(event.target.value)
+	}
+	const handleGenreChange = (event) => {
+		setGenre(event.target.value)
+	}
 
 	const handleSubmit = (event) => {
-        event.preventDefault()
-        //  setURL(
-		// 				`https://api.rawg.io/api/games?key=${REACT_APP_DISKSHELF_KEY}&search=${formStatus}`
-		// 			)
-        
+		event.preventDefault()
+
 		Axios(url)
 			.then((data) => {
-                // setGames(data)
-                
-           
-                setGames(data.data.results)
-                // console.log(games)
-                //  setGames(data.data.results)
-               
+				setGames(data.data.results)
 			})
-            .catch(console.error)
-            
+			.catch(console.error)
 	}
 	return (
 		<form onSubmit={handleSubmit}>

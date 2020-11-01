@@ -7,7 +7,7 @@ const Navigation = () => {
 	return (
 		<Navbar bg='primary'>
 			<Navbar.Brand as={Link} to='/'>
-				DiscShelf
+				Diskshelf
 			</Navbar.Brand>
 			<Navbar.Toggle aria-controls='basic-navbar-nav' />
 			<Navbar.Collapse id='basic-navbar-nav'>
@@ -18,9 +18,9 @@ const Navigation = () => {
 					{/* <Nav.Link as={Link} to='/search'>
 						Search
 					</Nav.Link> */}
-					<Nav.Link as={Link} to='/about'>
+					{/* <Nav.Link as={Link} to='/about'>
 						About
-					</Nav.Link>
+					</Nav.Link> */}
 				</Nav>
 			</Navbar.Collapse>
 		</Navbar>

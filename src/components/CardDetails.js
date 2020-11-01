@@ -16,9 +16,9 @@ const CardDetails = ({ match }) => {
 	}, [])
 
 	const getGame = () => {
-		const testurl = `https://api.rawg.io/api/games/${gameSlug}?key=${REACT_APP_DISKSHELF_KEY}`
+		const url = `https://api.rawg.io/api/games/${gameSlug}?key=${REACT_APP_DISKSHELF_KEY}`
 
-		Axios(testurl)
+		Axios(url)
 			.then((data) => {
 				setGame(data.data)
 				setPlatforms(data.data.platforms)
@@ -40,7 +40,7 @@ const CardDetails = ({ match }) => {
 		<div className='game-details'>
 			<h2 className='detailsGameName'> {game.name} </h2>
 			<p className='detailsReleased'> {game.released} </p>
-			{/* <p> {game.genres[0]?.name}, {game.genres[1]?.name} </p> */}
+
 			<p>
 				{game.genres[0]?.name}, {game.genres[1]?.name}{' '}
 			</p>
