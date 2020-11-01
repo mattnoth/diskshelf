@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Axios from 'axios'
 import '../index.scss'
+import Spinner from 'react-bootstrap/Spinner'
 
 const CardDetails = ({ match }) => {
 	const REACT_APP_DISKSHELF_KEY = process.env.REACT_APP_DISKSHELF_KEY
@@ -46,7 +47,15 @@ const CardDetails = ({ match }) => {
 	//add carasoul container for details to use dif images, clips?
 
 	if (!game) {
-		return <p>loading...</p>
+		return (
+			<div className='details_spinner'>
+				<Spinner
+					
+					animation='border'
+					variant='dark'
+				/>{' '}
+			</div>
+		)
 	}
 
 	

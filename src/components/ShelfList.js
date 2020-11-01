@@ -4,7 +4,7 @@ import ShelfCard from './ShelfCard'
 import SearchForm from './SearchForm'
 
 
-const ShelfList = ({ match }) => {
+const ShelfList = () => {
 	const [games, setGames] = useState([])
 	const [error, setError] = useState(false)
 	const REACT_APP_DISKSHELF_KEY = process.env.REACT_APP_DISKSHELF_KEY
@@ -16,7 +16,7 @@ const ShelfList = ({ match }) => {
 				.then((data) => {
 					setGames(data.data.results)
 				})
-				// .catch(error, setError())
+				.catch(error, setError())
 				.catch(console.error)
 		},
 		[setGames,  REACT_APP_DISKSHELF_KEY, error, url]
@@ -47,7 +47,6 @@ const ShelfList = ({ match }) => {
 	
 	// }
 
-	console.log(error)
 	if(error){ 
 		return (<p>oh no... looks like something went wrong</p>)
 	}
