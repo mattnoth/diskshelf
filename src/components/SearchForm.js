@@ -1,12 +1,27 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import Spinner from 'react-bootstrap/Spinner'
 import Axios from 'axios'
 
 const SearchForm = ({ games, setGames, getGames }) => {
 	const [formStatus, setFormStatus] = useState('')
 	const [platform, setPlatform] = useState('')
 	const [genre, setGenre] = useState('')
+	const [decade, setDecade] = useState('')
+
+	const [platforms, setPlatforms] = useState('')
 
 	const REACT_APP_DISKSHELF_KEY = process.env.REACT_APP_DISKSHELF_KEY
+
+	useEffect(function getPlatforms() {
+		const platUrl = 'https://api.rawg.io/api/platforms'
+		Axios(platUrl)
+			.then((data) => {
+				setPlatforms(data.data.results)
+			})
+			.catch(console.error)
+		return () => {}
+	}, [])
+
 	let url = `https://api.rawg.io/api/games?key=${REACT_APP_DISKSHELF_KEY}`
 	if (formStatus) {
 		url += `&search=${formStatus}`
@@ -17,6 +32,9 @@ const SearchForm = ({ games, setGames, getGames }) => {
 	if (genre !== '') {
 		url += `&genres=${genre}`
 	}
+	if (decade !== '') {
+		url += `&dates=${decade}`
+	}
 
 	const handleChange = (event) => {
 		setFormStatus(event.target.value)
@@ -25,19 +43,32 @@ const SearchForm = ({ games, setGames, getGames }) => {
 	const handlePlatformChange = (event) => {
 		setPlatform(event.target.value)
 	}
+
 	const handleGenreChange = (event) => {
 		setGenre(event.target.value)
+	}
+	const handleDecadeChange = (event) => {
+		setDecade(event.target.value)
 	}
 
 	const handleSubmit = (event) => {
 		event.preventDefault()
-
 		Axios(url)
 			.then((data) => {
 				setGames(data.data.results)
 			})
 			.catch(console.error)
 	}
+
+	if (!platforms) {
+		return (
+			<div className='details_spinner'>
+				<Spinner animation='border' variant='dark' />{' '}
+			</div>
+		)
+	}
+
+	
 	return (
 		<form onSubmit={handleSubmit}>
 			<input
@@ -47,11 +78,9 @@ const SearchForm = ({ games, setGames, getGames }) => {
 			/>
 			<select onChange={handlePlatformChange}>
 				<option value=''>platforms</option>
-				<option value='4'>PC</option>
-				<option value='1'>XBOX One</option>
-				<option value='7'>Nintendo Switch</option>
-				<option value='18'>Playstation 4</option>
-				{/* <option value='18'>Playstation 4</option> */}
+				{platforms.map((plat) => (
+					<option key={plat.id} value={plat.id}>{plat.name}</option>
+				))}
 			</select>
 			<select onChange={handleGenreChange}>
 				<option value=''>genres</option>
@@ -62,9 +91,25 @@ const SearchForm = ({ games, setGames, getGames }) => {
 				<option value='10'>Strategy</option>
 				<option value='2'>Shooter</option>
 				<option value='7'>Puzzle</option>
-
-				{/* <option value='18'>Playstation 4</option> */}
+				<option value='40'>Casual</option>
+				<option value='14'>Simulation</option>
+				<option value='11'>Arcade</option>
+				<option value='83'>Platformer</option>
+				<option value='1'>Racing</option>
+				<option value='15'>Sports</option>
+				<option value='59'>MMOs</option>
+				<option value='6'>Fighting</option>
 			</select>
+			<select onChange={handleDecadeChange}>
+				<option value=''>decade</option>
+				<option value='1970-01-01,1979-12-31'>1970s</option>
+				<option value='1980-01-01,1989-12-31'>1980s</option>
+				<option value='1990-01-01,1999-12-31'>1990s</option>
+				<option value='2000-01-01,2009-12-31'>2000s</option>
+				<option value='2010-01-01,2019-12-31'>2010s</option>
+				<option value='2020-01-01,2029-12-31'>2020s</option>
+			</select>
+
 			<button type='submit'>Search</button>
 		</form>
 	)

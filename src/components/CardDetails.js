@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react'
 import Axios from 'axios'
 import '../index.scss'
 import Spinner from 'react-bootstrap/Spinner'
+import Button from 'react-bootstrap/Button'
+import DetailModal from './DetailModal'
 
-const CardDetails = ({ match }) => {
+const CardDetails = ({ match, history }) => {
 	const REACT_APP_DISKSHELF_KEY = process.env.REACT_APP_DISKSHELF_KEY
 	const gameSlug = match.params.slug
 
@@ -12,45 +14,34 @@ const CardDetails = ({ match }) => {
 	const [rating, setRating] = useState({})
 	const [developer, setDeveloper] = useState([])
 
+	const [showModal, setShowModal] = useState(false)
+	const handleClose = () => setShowModal(false)
+	const handleShow = () => setShowModal(true)
 
-	// const getGame = () => {
-	// 	const url = `https://api.rawg.io/api/games/${gameSlug}?key=${REACT_APP_DISKSHELF_KEY}`
+	useEffect(
+		function getGame() {
+			const url = `https://api.rawg.io/api/games/${gameSlug}?key=${REACT_APP_DISKSHELF_KEY}`
 
-	// 	Axios(url)
-	// 		.then((data) => {
-	// 			setGame(data.data)
-	// 			setPlatforms(data.data.platforms)
-	// 			setRating(data.data.esrb_rating)
-	// 			setDeveloper(data.data.developers)
-	// 		})
-	// 		.catch(console.error)
-	// }
+			Axios(url)
+				.then((data) => {
+					setGame(data.data)
+					setPlatforms(data.data.platforms)
+					setRating(data.data.esrb_rating)
+					setDeveloper(data.data.developers)
+				})
+				.catch(console.error)
+		},
+		[REACT_APP_DISKSHELF_KEY, gameSlug]
+	)
 
-		useEffect(
-			function getGame() {
-				const url = `https://api.rawg.io/api/games/${gameSlug}?key=${REACT_APP_DISKSHELF_KEY}`
-
-				Axios(url)
-					.then((data) => {
-						setGame(data.data)
-						setPlatforms(data.data.platforms)
-						setRating(data.data.esrb_rating)
-						setDeveloper(data.data.developers)
-					})
-					.catch(console.error)
-			},
-			[REACT_APP_DISKSHELF_KEY, gameSlug]
-		)
-
-	
-	
-	//add carasoul container for details to use dif images, clips?
+	const goBack = () => { 
+		history.goBack()
+	}
 
 	if (!game) {
 		return (
 			<div className='details_spinner'>
 				<Spinner
-					
 					animation='border'
 					variant='dark'
 				/>{' '}
@@ -58,11 +49,11 @@ const CardDetails = ({ match }) => {
 		)
 	}
 
-	
-
 	return (
 		<div className='game-details'>
-			<h2 className='detailsGameName'> {game.name} </h2>
+			<span>
+				<h2 className='detailsGameName'> {game.name} </h2>
+			</span>
 			<p className='detailsReleased'> {game.released} </p>
 
 			<p>
@@ -75,6 +66,7 @@ const CardDetails = ({ match }) => {
 					alt={game.name}
 				/>{' '}
 			</div>
+
 			<div className='desc-div'>
 				{' '}
 				<p className='detailsDesc'>{game.description_raw}</p>{' '}
@@ -87,6 +79,17 @@ const CardDetails = ({ match }) => {
 			</p>
 			<p className='detailsRating'>{rating?.name}</p>
 			<p className='detailsDev'>{developer[0]?.name}</p>
+			<DetailModal
+				showModal={showModal}
+				setShowModal={setShowModal}
+				handleClose={handleClose}
+				handleShow={handleShow}
+				game={game}
+			/>
+			<Button variant='dark' onClick={goBack}>
+				{' '}
+				Go Back
+			</Button>
 		</div>
 	)
 }

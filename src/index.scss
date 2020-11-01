@@ -7,6 +7,7 @@ $theme-colors: (
 $enable-rounded: false;
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import '~bootstrap/scss/bootstrap.scss';
+@import "~video-react/styles/scss/video-react";
 /* 
 Give some padding to the header, main and footer elements
 if they are direct children of the #root element.
@@ -71,13 +72,17 @@ code {
 
 .game-details { 
   display:flex;
-
+ 
   flex-direction: column;
   justify-content: center;
-  align-content: center;
+  align-content: stretch;
+  align-self: center;
   background-color:#CCFFFF;
   text-align: center;
-
+  flex-wrap: nowrap;
+  align-items: stretch;
+  
+  
 
 }
 
@@ -103,18 +108,24 @@ code {
 }
 
 .desc-div { 
-  align-self: flex-start; 
-  padding: 25px 150px;
+  // align-self: flex-start; 
+  // padding: 25px 150px;
+  padding:1vh 1vh;
+  padding-top: 5px;
+  align-self: auto;
+  justify-self: center;
+  text-align: center;
+
 }
 
 .detailsGameName { 
-  padding: 10px;
+  padding: 5px;
 }
 
 .details_spinner {
  display: flex;
 
-align-content: center;
+align-content: center;  
  justify-content: center;
 
 }
