@@ -11,7 +11,6 @@ const SearchForm = ({ games, setGames, getGames }) => {
 	if (formStatus) {
 		url += `&search=${formStatus}`
 	}
-	console.log(platform)
 	if (platform !== '') {
 		url += `&platforms=${platform}`
 	}

@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-const REACT_APP_DISKSHELF_KEY = process.env.REACT_APP_DISKSHELF_KEY
+
 
 ReactDOM.render(
   <Router> 

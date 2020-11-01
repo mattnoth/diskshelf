@@ -11,23 +11,38 @@ const CardDetails = ({ match }) => {
 	const [rating, setRating] = useState({})
 	const [developer, setDeveloper] = useState([])
 
-	useEffect(() => {
-		getGame()
-	}, [])
 
-	const getGame = () => {
-		const url = `https://api.rawg.io/api/games/${gameSlug}?key=${REACT_APP_DISKSHELF_KEY}`
+	// const getGame = () => {
+	// 	const url = `https://api.rawg.io/api/games/${gameSlug}?key=${REACT_APP_DISKSHELF_KEY}`
 
-		Axios(url)
-			.then((data) => {
-				setGame(data.data)
-				setPlatforms(data.data.platforms)
-				setRating(data.data.esrb_rating)
-				setDeveloper(data.data.developers)
-			})
-			.catch(console.error)
-	}
+	// 	Axios(url)
+	// 		.then((data) => {
+	// 			setGame(data.data)
+	// 			setPlatforms(data.data.platforms)
+	// 			setRating(data.data.esrb_rating)
+	// 			setDeveloper(data.data.developers)
+	// 		})
+	// 		.catch(console.error)
+	// }
 
+		useEffect(
+			function getGame() {
+				const url = `https://api.rawg.io/api/games/${gameSlug}?key=${REACT_APP_DISKSHELF_KEY}`
+
+				Axios(url)
+					.then((data) => {
+						setGame(data.data)
+						setPlatforms(data.data.platforms)
+						setRating(data.data.esrb_rating)
+						setDeveloper(data.data.developers)
+					})
+					.catch(console.error)
+			},
+			[REACT_APP_DISKSHELF_KEY, gameSlug]
+		)
+
+	
+	
 	//add carasoul container for details to use dif images, clips?
 
 	if (!game) {
