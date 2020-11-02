@@ -2,7 +2,7 @@
 
 ## Description 
 
-Diskshelf is a web application for searching and view details about video games across time, powered by the RAWG API. 
+Diskshelf is a web application for searching and viewing details about video games across time, powered by the RAWG API. 
 
 ### Technologies 
 
