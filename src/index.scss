@@ -125,7 +125,38 @@ code {
 .details_spinner {
  display: flex;
 
-align-content: center;  
+  align-content: center;  
  justify-content: center;
+
+}
+
+
+select { 
+  display: inline;
+
+}
+
+.form_button { 
+  width: 100%;
+}
+
+// .searchForm { 
+//   width: 40%;
+//   display: inline;
+// }
+
+.dropdown-1 { 
+
+
+  grid-row: 1;
+
+}
+.dropdown-2 { 
+  display: inline;
+
+
+}
+.dropdown-3 { 
+  display: inline;
 
 }
