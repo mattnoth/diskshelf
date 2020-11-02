@@ -6,7 +6,7 @@ Diskshelf is a web application for searching and viewing details about video gam
 
 ### Technologies 
 
-React.js, Sass, Bootstrap, React Router, React Router Dom React Video Player
+React.js, Sass, Bootstrap, React Router, React Router Dom, React Video Player
 
 ### Getting Started 
 The page will automatically load the currently highest viewed games. Search any term, and filter search by platform, genre, or decade of release. EX. try to search "Mario"; decade 1980s 

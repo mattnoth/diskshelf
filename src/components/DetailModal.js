@@ -4,12 +4,11 @@ import Button from 'react-bootstrap/Button'
 import { Player } from 'video-react'
 
 const DetailModal = ({ showModal, setShowModal, handleClose, handleShow, game}) => {
-    return (
+	return (
 			<>
 				<Button variant='primary' onClick={handleShow}>
 					Video Clip
 				</Button>
-
 				<Modal show={showModal} onHide={handleClose}>
 					<Modal.Header closeButton>
 						<Modal.Title>Clip for {game.name}</Modal.Title>

@@ -13,7 +13,7 @@ const CardDetails = ({ match, history, error, setError }) => {
 	const [platforms, setPlatforms] = useState([])
 	const [rating, setRating] = useState({})
 	const [developer, setDeveloper] = useState([])
-
+	const [genres, setGenres] = useState({})
 	const [showModal, setShowModal] = useState(false)
 	const handleClose = () => setShowModal(false)
 	const handleShow = () => setShowModal(true)
@@ -25,7 +25,7 @@ const CardDetails = ({ match, history, error, setError }) => {
 			Axios(url)
 				.then((data) => {
 					setGame(data.data)
-					setPlatforms(data.data.platforms)
+					// setPlatforms(data.data.platforms)
 					setRating(data.data.esrb_rating)
 					setDeveloper(data.data.developers)
 				})
@@ -36,6 +36,26 @@ const CardDetails = ({ match, history, error, setError }) => {
 		},
 		[REACT_APP_DISKSHELF_KEY, gameSlug, setError, error]
 	)
+
+	useEffect(function getPlatforms() {
+		const platUrl = 'https://api.rawg.io/api/platforms'
+		Axios(platUrl)
+			.then((data) => {
+				setPlatforms(data.data.results)
+			})
+			.catch(console.error)
+		return () => {}
+	}, []) 
+
+	useEffect(function getGenres() {
+		const platUrl = 'https://api.rawg.io/api/genres'
+		Axios(platUrl)
+			.then((data) => {
+				setGenres(data.data.results)
+			})
+			.catch(console.error)
+		return () => {}
+	}, []) 
 
 	const goBack = () => { 
 		history.goBack()
@@ -63,9 +83,11 @@ const CardDetails = ({ match, history, error, setError }) => {
 			</span>
 			<p className='detailsReleased'> {game.released} </p>
 
+			{/* 
 			<p>
 				{game.genres[0]?.name}, {game.genres[1]?.name}{' '}
-			</p>
+			</p> */}
+			
 			<div className='image-div'>
 				<img
 					className='detail-image'
@@ -74,18 +96,32 @@ const CardDetails = ({ match, history, error, setError }) => {
 				/>{' '}
 			</div>
 
+			<ul>
+				{genres.map((genre) => (
+					<span key={genre.id} value={genre.id}>
+						{genre.name + ', '}
+					</span>
+				))}{' '}
+			</ul>
+
 			<div className='desc-div'>
 				{' '}
 				<p className='detailsDesc'>{game.description_raw}</p>{' '}
 			</div>
-{/*  */}
-			<p className='detailsPlatform'>
+
+			{/*  */}
+			{/* <p className='detailsPlatform'>
 				Available On: {platforms[0]?.platform?.name},{' '}
 				{platforms[1]?.platform?.name}, {platforms[2]?.platform?.name},{' '}
 				{platforms[3]?.platform?.name}{' '}
-			</p>
-
-		
+			</p> */}
+			<ul>
+				{platforms.map((plat) => (
+					<span key={plat.id} value={plat.id}>
+						{plat.name + ', '}
+					</span>
+				))}{' '}
+			</ul>
 			<p className='detailsRating'>{rating?.name}</p>
 			<p className='detailsDev'>{developer[0]?.name}</p>
 			<DetailModal
@@ -95,7 +131,6 @@ const CardDetails = ({ match, history, error, setError }) => {
 				handleShow={handleShow}
 				game={game}
 			/>
-
 			<Button variant='dark' onClick={goBack}>
 				{' '}
 				Go Back

@@ -23,7 +23,7 @@ const SearchForm = ({ games, setGames, getGames }) => {
 		return () => {}
 	}, [])
 
-	let url = `https://api.rawg.io/api/games?key=${REACT_APP_DISKSHELF_KEY}`
+	let url = `https://api.rawg.io/api/games?key=${REACT_APP_DISKSHELF_KEY}&page_size=50`
 	if (formStatus) {
 		url += `&search=${formStatus}`
 	}
