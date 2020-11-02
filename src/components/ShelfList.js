@@ -15,37 +15,16 @@ const ShelfList = () => {
 			Axios(url)
 				.then((data) => {
 					setGames(data.data.results)
+					setError(false)
 				})
-				.catch(error, setError())
-				.catch(console.error)
+				.catch((error) => {
+					console.error(error)
+					setError(true)
+					
+				})
 		},
 		[setGames,  REACT_APP_DISKSHELF_KEY, error, url]
 	) 
-
-		// function searchGames() {
-		// 	const REACT_APP_DISKSHELF_KEY = process.env.REACT_APP_DISKSHELF_KEY
-
-		// 	const url = `https://api.rawg.io/api/games?key=${REACT_APP_DISKSHELF_KEY}&ordering=-added&page_size=50&platforms=4,18,1,7`
-
-		// 	Axios(url)
-		// 		.then((data) => {
-		// 			setGames(data.data.results)
-		// 		})
-		// 		.catch(console.error)
-		// }
-
-	// function getGames() {
-		
-	
-	// 	// const url = `https://api.rawg.io/api/games?key=undefined&ordering=-added&page_size=50`
-		
-		
-		
-		
-	// 	// &platforms=4,18,1,7`
-
-	
-	// }
 
 	if(error){ 
 		return (<p>oh no... looks like something went wrong</p>)
@@ -53,7 +32,7 @@ const ShelfList = () => {
 	
 	return (
 		<>
-		<SearchForm games={games} setGames={setGames} />
+		<SearchForm games={games} setGames={setGames} error={error} setError={setError} />
 			<div className='game-container'>
 				{games.map((game) => (
 					<ShelfCard game={game} key={game.slug} />

@@ -5,7 +5,7 @@ import Spinner from 'react-bootstrap/Spinner'
 import Button from 'react-bootstrap/Button'
 import DetailModal from './DetailModal'
 
-const CardDetails = ({ match, history }) => {
+const CardDetails = ({ match, history, error, setError }) => {
 	const REACT_APP_DISKSHELF_KEY = process.env.REACT_APP_DISKSHELF_KEY
 	const gameSlug = match.params.slug
 
@@ -29,14 +29,21 @@ const CardDetails = ({ match, history }) => {
 					setRating(data.data.esrb_rating)
 					setDeveloper(data.data.developers)
 				})
-				.catch(console.error)
+				.catch((error) => {
+					console.error(error)
+					setError(true)
+				})
 		},
-		[REACT_APP_DISKSHELF_KEY, gameSlug]
+		[REACT_APP_DISKSHELF_KEY, gameSlug, setError, error]
 	)
 
 	const goBack = () => { 
 		history.goBack()
 	}
+		if (error) {
+			return <p>oh no... looks like something went wrong</p>
+		}
+	
 
 	if (!game) {
 		return (
@@ -71,12 +78,14 @@ const CardDetails = ({ match, history }) => {
 				{' '}
 				<p className='detailsDesc'>{game.description_raw}</p>{' '}
 			</div>
-
+{/*  */}
 			<p className='detailsPlatform'>
 				Available On: {platforms[0]?.platform?.name},{' '}
 				{platforms[1]?.platform?.name}, {platforms[2]?.platform?.name},{' '}
 				{platforms[3]?.platform?.name}{' '}
 			</p>
+
+		
 			<p className='detailsRating'>{rating?.name}</p>
 			<p className='detailsDev'>{developer[0]?.name}</p>
 			<DetailModal
@@ -86,6 +95,7 @@ const CardDetails = ({ match, history }) => {
 				handleShow={handleShow}
 				game={game}
 			/>
+
 			<Button variant='dark' onClick={goBack}>
 				{' '}
 				Go Back
