@@ -1,10 +1,10 @@
-# DiskShelf
+# DiskShelf - currently deployed at https://diskshelf.herokuapp.com
 
 ## Description 
 
 Diskshelf is a web application for searching and view details about video games across time, powered by the RAWG API. 
 
-## Technologies 
+### Technologies 
 
 React.js, Sass, Bootstrap, React Router, React Router Dom React Video Player
 
