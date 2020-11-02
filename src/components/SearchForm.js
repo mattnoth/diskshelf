@@ -69,6 +69,7 @@ const SearchForm = ({ games, setGames, getGames }) => {
 		)
 	}
 
+	
 	return (
 		<div className='flex-row'  >
 			<form className='d-flex flex-row' onSubmit={handleSubmit}>
