@@ -14,13 +14,13 @@ const SearchForm = ({ games, setGames, getGames }) => {
 	const REACT_APP_DISKSHELF_KEY = process.env.REACT_APP_DISKSHELF_KEY
 
 	useEffect(function getPlatforms() {
-		const platUrl = 'https://api.rawg.io/api/platforms'
+		const platUrl = `https://api.rawg.io/api/platforms?key=${REACT_APP_DISKSHELF_KEY}`
 		Axios(platUrl)
 			.then((data) => {
 				setPlatforms(data.data.results)
 			})
 			.catch(console.error)
-		return () => {}
+		return () => { }
 	}, [])
 
 	let url = `https://api.rawg.io/api/games?key=${REACT_APP_DISKSHELF_KEY}&page_size=50`
@@ -69,13 +69,13 @@ const SearchForm = ({ games, setGames, getGames }) => {
 		)
 	}
 
-	
+
 	return (
 		<div className='flex-row'  >
 			<form className='d-flex flex-row' onSubmit={handleSubmit}>
 				<input
 					type='text'
-					placeholder='search or use filters ' 
+					placeholder='search or use filters '
 					onChange={handleChange}
 					className='input_search searchForm form-control'
 				/>
